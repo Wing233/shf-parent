@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.dao.AdminDao">
+
+    <sql id="column">
+        id
+        , username, password, `name`, phone, head_url, description, create_time, is_deleted
+    </sql>
+
+    <select id="findPage" resultType="admin">
+        select
+        <include refid="column"/>
+        from acl_admin
+        <where>
+            <if test="username != null and username != ''">
+                username like "%"#{username}"%" and
+            </if>
+            <if test="name != null and name != ''">
+                `name` like "%"#{name}"%" and
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone} and
+            </if>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                create_time &gt;= #{createTimeBegin} and
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                create_time &lt;= "%"#{createTimeEnd}"%" and
+            </if>
+            is_deleted = 0
+        </where>
+        order by id desc
+    </select>
+
+    <insert id="insert">
+        insert into acl_admin(username, password, `name`, phone, head_url)
+        values (#{username}, #{password}, #{name}, #{phone}, #{headUrl})
+    </insert>
+
+    <select id="getById" resultType="admin">
+        select
+        <include refid="column"/>
+        from acl_admin
+        where id = #{id}
+    </select>
+
+    <update id="update">
+        update acl_admin set
+        <if test="name != null and name != ''">
+            `name` = #{name},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        update_time = now()
+        where id = #{id}
+    </update>
+
+    <update id="delete">
+        update acl_admin
+        set is_deleted = 1
+        where id = #{id}
+    </update>
+
+    <select id="getByUserName" resultType="com.atguigu.entity.Admin">
+        select
+        <include refid="column"/>
+        from acl_admin
+        where username = #{username}
+    </select>
+
+</mapper>
