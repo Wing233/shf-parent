@@ -28,7 +28,7 @@
                 create_time &gt;= #{createTimeBegin} and
             </if>
             <if test="createTimeEnd != null and createTimeEnd != ''">
-                create_time &lt;= "%"#{createTimeEnd}"%" and
+                create_time &lt;= #{createTimeEnd} and
             </if>
             is_deleted = 0
         </where>

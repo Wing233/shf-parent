@@ -1,6 +1,7 @@
 package com.atguigu.base;
 
 import com.github.pagehelper.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -21,12 +22,12 @@ public class BaseController {
 
     public static final String MESSAGE_SUCCESS = "操作成功!";
 
-    protected String successPage(String message, HttpServletRequest request) {
+    protected String successPage(String message, @NotNull HttpServletRequest request) {
         request.setAttribute("messagePage", StringUtil.isEmpty(message) ? MESSAGE_SUCCESS : message);
         return PAGE_SUCCESS;
     }
 
-    protected Map<String,Object> getFilters(HttpServletRequest request) {
+    protected Map<String, Object> getFilters(@NotNull HttpServletRequest request) {
         Enumeration<String> paramNames = request.getParameterNames();
         Map<String, Object> filters = new TreeMap();
         while (paramNames != null && paramNames.hasMoreElements()) {

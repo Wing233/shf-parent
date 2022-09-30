@@ -3,6 +3,7 @@ package com.atguigu.base;
 import com.atguigu.util.CastUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -36,14 +37,14 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return getEntityDao().getById(id);
     }
 
-    public PageInfo<T> findPage(Map<String, Object> filters) {
+    public PageInfo<T> findPage(@NotNull Map<String, Object> filters) {
         //当前页数
         int pageNum = CastUtil.castInt(filters.get("pageNum"), 1);
         //每页显示的记录条数
         int pageSize = CastUtil.castInt(filters.get("pageSize"), 10);
 
         PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<T>(getEntityDao().findPage(filters), 10);
+        return new PageInfo<T>(getEntityDao().findPage(filters), 5);
     }
 
 }

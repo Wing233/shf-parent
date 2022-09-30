@@ -63,7 +63,7 @@ public class RoleController extends BaseController {
     @PostMapping("/save")
     public String save(Role role, @NotNull HttpServletRequest request) {
         roleService.insert(role);
-        return successPage("添加成功!", request);
+        return this.successPage("添加成功!", request);
     }
 
     @GetMapping("/edit/{id}")
@@ -79,7 +79,7 @@ public class RoleController extends BaseController {
         BeanUtils.copyProperties(role, currentRole);
 
         roleService.update(currentRole);
-        return this.successPage(this.MESSAGE_SUCCESS, request);
+        return this.successPage(MESSAGE_SUCCESS, request);
     }
 
     @GetMapping("/delete/{id}")

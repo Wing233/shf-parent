@@ -4,6 +4,7 @@ import com.atguigu.base.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
 import com.github.pagehelper.PageInfo;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class AdminController extends BaseController {
     private final static String PAGE_EDIT = "admin/edit";
 
     @RequestMapping
-    public String index(ModelMap model, HttpServletRequest request) {
+    public String index(@NotNull ModelMap model, HttpServletRequest request) {
         Map<String, Object> filters = getFilters(request);
         PageInfo<Admin> page = adminService.findPage(filters);
 
@@ -51,18 +51,18 @@ public class AdminController extends BaseController {
     }
 
     @PostMapping("/save")
-    public String save(Admin admin, HttpServletRequest request) {
+    public String save(@NotNull Admin admin, HttpServletRequest request) {
         Admin exist = adminService.getByUserName(admin.getUsername());
         if (exist != null) {
-            return successPage("用户名已存在!", request);
+            return this.successPage("用户名已存在!", request);
         }
         admin.setHeadUrl("http://127.0.0.1:8000/static/img/a1.jpg");
         adminService.insert(admin);
-        return successPage("保存成功!", request);
+        return this.successPage("保存成功!", request);
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(ModelMap model, @PathVariable Long id) {
+    public String edit(@NotNull ModelMap model, @PathVariable Long id) {
         Admin admin = adminService.getById(id);
         model.addAttribute("admin", admin);
         return PAGE_EDIT;
@@ -71,7 +71,7 @@ public class AdminController extends BaseController {
     @PostMapping(value = "/update")
     public String update(Admin admin, HttpServletRequest request) {
         adminService.update(admin);
-        return successPage("修改成功!", request);
+        return this.successPage("修改成功!", request);
     }
 
     @GetMapping("/delete/{id}")
