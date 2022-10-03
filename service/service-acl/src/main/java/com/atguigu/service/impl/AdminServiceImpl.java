@@ -9,6 +9,8 @@ import com.atguigu.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA
  *
@@ -30,4 +32,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminSer
     public Admin getByUserName(String username) {
         return adminDao.getByUserName(username);
     }
+
+    @Override
+    public List<Admin> findAll() {
+        return adminDao.findAll();
+    }
+
 }

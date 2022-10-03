@@ -3,6 +3,8 @@ package com.atguigu.service;
 import com.atguigu.base.BaseService;
 import com.atguigu.entity.Admin;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA
  *
@@ -13,4 +15,5 @@ import com.atguigu.entity.Admin;
 
 public interface AdminService extends BaseService<Admin> {
     Admin getByUserName(String username);
+    List<Admin> findAll();
 }

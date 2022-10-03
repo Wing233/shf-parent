@@ -10,7 +10,7 @@
         , username, password, `name`, phone, head_url, description, create_time, is_deleted
     </sql>
 
-    <select id="findPage" resultType="admin">
+    <select id="findPage" resultType="com.atguigu.entity.Admin">
         select
         <include refid="column"/>
         from acl_admin
@@ -40,7 +40,7 @@
         values (#{username}, #{password}, #{name}, #{phone}, #{headUrl})
     </insert>
 
-    <select id="getById" resultType="admin">
+    <select id="getById" resultType="com.atguigu.entity.Admin">
         select
         <include refid="column"/>
         from acl_admin
@@ -54,6 +54,9 @@
         </if>
         <if test="phone != null and phone != ''">
             phone = #{phone},
+        </if>
+        <if test="headUrl != null and headUrl != ''">
+            head_url = #{headUrl},
         </if>
         update_time = now()
         where id = #{id}
@@ -70,6 +73,14 @@
         <include refid="column"/>
         from acl_admin
         where username = #{username}
+    </select>
+
+    <select id="findAll" resultType="com.atguigu.entity.Admin">
+        select
+        <include refid="column"/>
+        from acl_admin
+        where
+        is_deleted = 0
     </select>
 
 </mapper>

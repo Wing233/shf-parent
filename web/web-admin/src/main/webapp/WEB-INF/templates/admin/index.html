@@ -60,6 +60,7 @@
                 <td th:text="${item.phone}">22</td>
                 <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}" >33</td>
                 <td class="text-center">
+                  <a class="upload" th:attr="data-id=${item.id}">上传头像</a>
                   <a class="edit" th:attr="data-id=${item.id}">修改</a>
                   <a class="delete" th:attr="data-id=${item.id}">删除</a>
                 </td>
@@ -87,6 +88,10 @@
     $(".delete").on("click",function(){
       var id = $(this).attr("data-id");
       opt.confirm('/admin/delete/'+id);
+    });
+    $(".upload").on("click",function(){
+      var id = $(this).attr("data-id");
+      opt.openWin('/admin/uploadShow/'+id,'上传头像',580,300);
     });
   });
 </script>

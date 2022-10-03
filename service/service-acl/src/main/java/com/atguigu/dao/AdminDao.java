@@ -3,6 +3,8 @@ package com.atguigu.dao;
 import com.atguigu.base.BaseDao;
 import com.atguigu.entity.Admin;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA
  *
@@ -13,4 +15,6 @@ import com.atguigu.entity.Admin;
 
 public interface AdminDao extends BaseDao<Admin> {
     Admin getByUserName(String username);
+
+    List<Admin> findAll();
 }
