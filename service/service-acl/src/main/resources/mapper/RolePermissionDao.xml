@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.dao.RolePermissionDao">
+    <resultMap id="rolePermissionDaoResultMap" type="com.atguigu.entity.RolePermission">
+        <id property="id" column="id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="permissionId" column="permission_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <sql id="rolePermission">
+        id
+        ,role_id,permission_id,create_time,update_time,is_deleted
+    </sql>
+
+    <select id="findPermissionIdListByRoleId" parameterType="long" resultType="long">
+        select
+        <include refid="rolePermission"/>
+        from acl_role_permission
+        where role_id = #{roleId}
+and is_deleted = 0
+    </select>
+
+    <delete id="deleteByRoleId" parameterType="long">
+        update acl_role_permission
+        set is_deleted = 1,
+            update_time = now()
+        where role_id = #{roleId}
+    </delete>
+
+    <insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+        insert into acl_role_permission (id,
+                                         role_id,
+                                         permission_id)
+        values (#{id},
+                #{roleId},
+                #{permissionId})
+    </insert>
+
+    <insert id="insertBatch" parameterType="list">
+        insert into acl_role_permission (id, role_id, permission_id)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.id},#{item.roleId},#{item.permissionId})
+        </foreach>
+    </insert>
+
+    <update id="update">
+        update acl_role_permission
+        set role_id       = #{roleId},
+            permission_id = #{permissionId}
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        update acl_role_permission
+        set is_deleted   = 1,
+            update_time = now()
+        where id = #{id}
+    </delete>
+
+    <select id="getById" parameterType="long" resultMap="rolePermissionDaoResultMap">
+        select
+        <include refid="rolePermission"/>
+        from acl_role_permission where id = #{id}
+    </select>
+
+</mapper>

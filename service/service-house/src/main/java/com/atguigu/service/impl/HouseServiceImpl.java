@@ -3,9 +3,9 @@ package com.atguigu.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.BaseDao;
 import com.atguigu.base.BaseServiceImpl;
+import com.atguigu.dao.DictDao;
 import com.atguigu.dao.HouseDao;
 import com.atguigu.entity.House;
-import com.atguigu.service.DictService;
 import com.atguigu.service.HouseService;
 import com.atguigu.vo.HouseQueryVo;
 import com.atguigu.vo.HouseVo;
@@ -32,7 +32,7 @@ public class HouseServiceImpl extends BaseServiceImpl<House> implements HouseSer
     private HouseDao houseDao;
 
     @Autowired
-    private DictService dictService;
+    private DictDao dictDao;
 
     @Override
     protected BaseDao<House> getEntityDao() {
@@ -54,11 +54,11 @@ public class HouseServiceImpl extends BaseServiceImpl<House> implements HouseSer
         List<HouseVo> list = page.getResult();
         for(HouseVo houseVo : list) {
             //户型：
-            String houseTypeName = dictService.getNameById(houseVo.getHouseTypeId());
+            String houseTypeName = dictDao.getNameById(houseVo.getHouseTypeId());
             //楼层
-            String floorName = dictService.getNameById(houseVo.getFloorId());
+            String floorName = dictDao.getNameById(houseVo.getFloorId());
             //朝向：
-            String directionName = dictService.getNameById(houseVo.getDirectionId());
+            String directionName = dictDao.getNameById(houseVo.getDirectionId());
             houseVo.setHouseTypeName(houseTypeName);
             houseVo.setFloorName(floorName);
             houseVo.setDirectionName(directionName);
@@ -72,17 +72,17 @@ public class HouseServiceImpl extends BaseServiceImpl<House> implements HouseSer
         if(null == house) return null;
 
         //户型：
-        String houseTypeName = dictService.getNameById(house.getHouseTypeId());
+        String houseTypeName = dictDao.getNameById(house.getHouseTypeId());
         //楼层
-        String floorName = dictService.getNameById(house.getFloorId());
+        String floorName = dictDao.getNameById(house.getFloorId());
         //建筑结构：
-        String buildStructureName = dictService.getNameById(house.getBuildStructureId());
+        String buildStructureName = dictDao.getNameById(house.getBuildStructureId());
         //朝向：
-        String directionName = dictService.getNameById(house.getDirectionId());
+        String directionName = dictDao.getNameById(house.getDirectionId());
         //装修情况：
-        String decorationName = dictService.getNameById(house.getDecorationId());
+        String decorationName = dictDao.getNameById(house.getDecorationId());
         //房屋用途：
-        String houseUseName = dictService.getNameById(house.getHouseUseId());
+        String houseUseName = dictDao.getNameById(house.getHouseUseId());
         house.setHouseTypeName(houseTypeName);
         house.setFloorName(floorName);
         house.setBuildStructureName(buildStructureName);

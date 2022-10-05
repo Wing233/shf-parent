@@ -16,4 +16,5 @@ import java.util.List;
 public interface AdminService extends BaseService<Admin> {
     Admin getByUserName(String username);
     List<Admin> findAll();
+
 }

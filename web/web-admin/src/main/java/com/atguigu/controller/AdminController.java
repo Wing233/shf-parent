@@ -4,10 +4,13 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.atguigu.base.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
+import com.atguigu.service.RoleService;
 import com.atguigu.util.MD5;
 import com.atguigu.util.QiniuUtils;
 import com.github.pagehelper.PageInfo;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +35,21 @@ public class AdminController extends BaseController {
     @Reference
     private AdminService adminService;
 
+    @Reference
+    private RoleService roleService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private final static String LIST_ACTION = "redirect:/admin";
     private final static String PAGE_INDEX = "admin/index";
     private final static String PAGE_CREATE = "admin/create";
     private final static String PAGE_EDIT = "admin/edit";
 
     private final static String PAGE_UPLOED_SHOW = "admin/upload";
+
+    private final static String PAGE_ASSGIN_SHOW = "admin/assignShow";
+
 
     @RequestMapping
     public String index(@NotNull ModelMap model, HttpServletRequest request) {
@@ -56,12 +68,8 @@ public class AdminController extends BaseController {
 
     @PostMapping("/save")
     public String save(@NotNull Admin admin, HttpServletRequest request) {
-        Admin exist = adminService.getByUserName(admin.getUsername());
-        if (exist != null) {
-            return this.successPage("用户名已存在!", request);
-        }
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         admin.setHeadUrl("http://43.143.135.32:8080/static/img/a1.jpg");
-        admin.setPassword(MD5.encrypt(admin.getPassword()));
         adminService.insert(admin);
         return this.successPage("保存成功!", request);
     }
@@ -103,5 +111,31 @@ public class AdminController extends BaseController {
         adminService.update(admin);
         return this.successPage(this.MESSAGE_SUCCESS, request);
     }
+
+    /**
+     * 进入分配角色页面
+     * @param adminId
+     * @return
+     */
+    @GetMapping("/assignShow/{adminId}")
+    public String assignShow(ModelMap model,@PathVariable Long adminId) {
+        Map<String, Object> roleMap = roleService.findRoleByAdminId(adminId);
+        model.addAllAttributes(roleMap);
+        model.addAttribute("adminId", adminId);
+        return PAGE_ASSGIN_SHOW;
+    }
+
+    /**
+     * 根据用户分配角色
+     * @param adminId
+     * @param roleIds
+     * @return
+     */
+    @PostMapping("/assignRole")
+    public String assignRole(Long adminId, Long[] roleIds, HttpServletRequest request) {
+        roleService.saveUserRoleRelationShip(adminId,roleIds);
+        return this.successPage(this.MESSAGE_SUCCESS, request);
+    }
+
 
 }

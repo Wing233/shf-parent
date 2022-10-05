@@ -3,6 +3,8 @@ package com.atguigu.service.impl;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.atguigu.base.BaseDao;
+import com.atguigu.base.BaseServiceImpl;
 import com.atguigu.dao.DictDao;
 import com.atguigu.entity.Dict;
 import com.atguigu.service.DictService;
@@ -26,7 +28,7 @@ import java.util.Map;
  */
 
 @Service(interfaceClass = DictService.class)
-public class DictServiceImpl implements DictService {
+public class DictServiceImpl extends BaseServiceImpl<Dict> implements DictService {
 
     @Autowired
     private DictDao dictDao;
@@ -137,5 +139,10 @@ public class DictServiceImpl implements DictService {
             }
         }
         return "";
+    }
+
+    @Override
+    protected BaseDao<Dict> getEntityDao() {
+        return dictDao;
     }
 }

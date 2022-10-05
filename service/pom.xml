@@ -14,12 +14,23 @@
     <modules>
         <module>service-acl</module>
         <module>service-house</module>
+        <module>service-user</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.atguigu</groupId>
             <artifactId>common-util</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javassist</groupId>
+                    <artifactId>javassist</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
             <version>1.0</version>
         </dependency>
         <dependency>

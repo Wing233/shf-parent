@@ -5,6 +5,7 @@ import com.atguigu.base.BaseController;
 import com.atguigu.entity.HouseImage;
 import com.atguigu.service.HouseImageService;
 import com.atguigu.util.QiniuUtils;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class HouseImageController extends BaseController {
     private final static String PAGE_UPLOED_SHOW = "house/upload";
 
     @GetMapping("/uploadShow/{houseId}/{type}")
-    public String uploadShow(ModelMap model,
+    public String uploadShow(@NotNull ModelMap model,
                              @PathVariable Long houseId,
                              @PathVariable Long type) {
         model.addAttribute("houseId",houseId);
@@ -35,7 +36,7 @@ public class HouseImageController extends BaseController {
     @ResponseBody
     public String upload(@PathVariable Long houseId,
                          @PathVariable Integer type,
-                         @RequestParam(value = "file") MultipartFile[] files)
+                         @RequestParam(value = "file") MultipartFile @NotNull [] files)
             throws Exception {
         if(files.length > 0) {
             for(MultipartFile file : files) {

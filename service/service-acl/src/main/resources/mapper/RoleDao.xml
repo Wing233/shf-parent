@@ -9,7 +9,7 @@
         , role_name, role_code, description, create_time, update_time, is_deleted
     </sql>
 
-    <select id="findAll" resultType="Role">
+    <select id="findAll" resultType="com.atguigu.entity.Role">
         select
         <include refid="column"/>
         from acl_role where is_deleted = 0
@@ -20,7 +20,7 @@
         values (#{id}, #{roleName}, #{roleCode}, #{description})
     </insert>
 
-    <select id="getById" resultType="Role">
+    <select id="getById" resultType="com.atguigu.entity.Role">
         select
         <include refid="column"/>
         from acl_role
@@ -61,7 +61,7 @@
         </where>
     </sql>
 
-    <select id="findPage" resultType="Role">
+    <select id="findPage" resultType="com.atguigu.entity.Role">
         select
         <include refid="column"/>
         from acl_role

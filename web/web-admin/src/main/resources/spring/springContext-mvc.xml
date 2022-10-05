@@ -13,7 +13,9 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <import resource="classpath:spring/spring-registry.xml"></import>
+    <import resource="classpath:/spring/spring-redis.xml"/>
+
+    <import resource="classpath:/spring/spring-registry.xml"/>
 
     <aop:aspectj-autoproxy/>
 
@@ -62,7 +64,12 @@
     <!--配置模板引擎-->
     <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
         <!--引用视图解析器-->
-        <property name="templateResolver" ref="templateResolver"></property>
+        <property name="templateResolver" ref="templateResolver"/>
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect"/>
+            </set>
+        </property>
     </bean>
 
     <!--配置上传解析器
