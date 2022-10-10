@@ -3,6 +3,7 @@ package com.atguigu.interceptor;
 import com.atguigu.result.Result;
 import com.atguigu.result.ResultCodeEnum;
 import com.atguigu.util.WebUtil;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     }
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,Object object) throws Exception {
+    public boolean preHandle(@NotNull HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
         Object userInfo = request.getSession().getAttribute("USER");
         if(null == userInfo) {
             Result result = Result.build("未登录", ResultCodeEnum.LOGIN_AUTH);
