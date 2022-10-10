@@ -43,6 +43,11 @@ public interface BaseDao<T> {
      */
     T getById(Serializable id);
 
+    /**
+     * 查询过滤后的页面数据
+     * @param filters
+     * @return
+     */
     Page<T> findPage(Map<String, Object> filters);
 
 }

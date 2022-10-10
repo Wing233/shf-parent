@@ -75,4 +75,19 @@ public class UserFollowServiceImpl extends BaseServiceImpl<UserFollow> implement
         userFollowDao.delete(id);
         return true;
     }
+
+    @Override
+    public void insertBatch(List<UserFollow> userFollowList) {
+        userFollowDao.insertBatch(userFollowList);
+    }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        userFollowDao.deleteByUserId(userId);
+    }
+
+    @Override
+    public List<Long> findHouseIdByUserId(Long userId) {
+        return userFollowDao.findHouseIdByUserId(userId);
+    }
 }

@@ -59,7 +59,7 @@
         id = #{id}
     </select>
 
-    <select id="countByUserIdAndHouserId" resultType="Integer">
+    <select id="countByUserIdAndHouserId" resultType="integer">
         select count(id)
         from user_follow
         where
@@ -92,4 +92,35 @@
         </where>
         order by flw.id desc
     </select>
+
+    <update id="deleteByUserId">
+        update user_follow set
+                                  update_time = now() ,
+                                  is_deleted = 1
+        where
+            user_id = #{userId}
+    </update>
+
+    <select id="findHouseIdByUserId" resultType="long">
+        select
+            house_id
+        from user_follow
+        where
+            user_id = #{userId}
+          and is_deleted = 0
+    </select>
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        insert into user_follow (
+        house_id ,
+        user_id
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (
+            #{item.houseId} ,
+            #{item.userId}
+            )
+        </foreach>
+    </insert>
+
 </mapper>

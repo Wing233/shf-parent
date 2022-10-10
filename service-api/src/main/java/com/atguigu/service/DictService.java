@@ -12,12 +12,11 @@ import java.util.Map;
  * @Author : C22
  * @create 2022/10/2 14:39
  */
-
-
 public interface DictService extends BaseService<Dict> {
+
     List<Map<String, Object>> findZnodes(Long id);
     List<Dict> findListByParentId(Long parentId);
     List<Dict> findListByDictCode(String dictCode);
-
     String getNameById(Long id);
+
 }

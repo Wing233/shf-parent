@@ -5,6 +5,8 @@ import com.atguigu.entity.UserFollow;
 import com.atguigu.vo.UserFollowVo;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface UserFollowService extends BaseService<UserFollow> {
     /**
      * 关注房源
@@ -29,4 +31,10 @@ public interface UserFollowService extends BaseService<UserFollow> {
      * @return
      */
     Boolean cancelFollow(Long id);
+
+    void insertBatch(List<UserFollow> userFollowList);
+
+    void deleteByUserId(Long userId);
+
+    List<Long> findHouseIdByUserId(Long userId);
 }

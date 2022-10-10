@@ -73,10 +73,22 @@
 
     <sql id="findPageWhere">
         <where>
-            <if test="phone != null and phone != ''">
-                and phone = #{phone}
+            <if test="nickName != null and nickName != ''">
+                nick_name like "%"#{nickName}"%" and
             </if>
-            and is_deleted = 0
+            <if test="phone != null and phone != ''">
+                `phone` like "%"#{phone}"%" and
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status} and
+            </if>
+            <if test="createTime != null and createTime != ''">
+                create_time &gt;= #{createTime} and
+            </if>
+            <if test="updateTime != null and updateTime != ''">
+                create_time &lt;= #{updateTime} and
+            </if>
+            is_deleted = 0
         </where>
     </sql>
 

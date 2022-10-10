@@ -40,10 +40,10 @@
                            </span>
 						</a>
 						<ul class="dropdown-menu animated fadeInRight m-t-xs">
-							<li><a class="J_menuItem" href="javascript:">修改头像</a></li>
+							<li><a class="J_menuItem" id="upload" th:attr="data-id=${admin.id}">修改头像</a></li>
 							<li><a class="J_menuItem" href="javascript:">个人资料</a></li>
 							<li><a class="J_menuItem" href="javascript:">联系我们</a></li>
-							<li><a class="J_menuItem" href="javascript:">信箱</a></li>
+							<li><a class="J_menuItem" href="https://mail.qq.com/">信箱</a></li>
 							<li class="divider"></li>
 							<li><a href="/logout">安全退出</a></li>
 						</ul>
@@ -117,10 +117,21 @@
 <script th:src="@{/static/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
 <script th:src="@{/static/js/plugins/contextMenu/jquery.contextMenu.min.js}"></script>
 <script th:src="@{/static/js/plugins/layer/layer.min.js}"></script>
+<script th:src="@{/static/js/myLayer.js}"></script>
+
 
 <!-- 自定义js -->
 <script th:src="@{/static/js/hplus.js?v=4.1.0}"></script>
 <script type="text/javascript" th:src="@{/static/js/contabs.js}"></script>
+
+<script th:inline="javascript">
+	$(function(){
+		$("#upload").on("click",function(){
+			var id = $(this).attr("data-id");
+			opt.openWin('/admin/uploadShow/'+id,'上传头像',580,300);
+		});
+	});
+</script>
 
 </body>
 </html>

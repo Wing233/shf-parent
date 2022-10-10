@@ -1,12 +1,18 @@
 package com.atguigu.util;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-
+/**
+ * MD5加密工具类
+ */
 public final class MD5 {
 
-    public static String encrypt(String strSrc) {
+    @Contract("_ -> new")
+    public static @NotNull String encrypt(@NotNull String strSrc) {
         try {
             char hexChars[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
                     '9', 'a', 'b', 'c', 'd', 'e', 'f' };

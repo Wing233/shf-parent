@@ -1,5 +1,6 @@
 package com.atguigu.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.atguigu.base.BaseDao;
 import com.atguigu.base.BaseServiceImpl;
@@ -7,6 +8,7 @@ import com.atguigu.dao.CommunityDao;
 import com.atguigu.dao.DictDao;
 import com.atguigu.entity.Community;
 import com.atguigu.service.CommunityService;
+import com.atguigu.service.DictService;
 import com.atguigu.util.CastUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -29,8 +31,8 @@ import java.util.Map;
 public class CommunityServiceImpl extends BaseServiceImpl<Community> implements CommunityService {
     @Autowired
     private CommunityDao communityDao;
-    @Autowired
-    private DictDao dictDao;
+    @Reference(check = false)
+    private DictService dictService;
     @Override
     protected BaseDao<Community> getEntityDao() {
         return communityDao;
@@ -47,8 +49,8 @@ public class CommunityServiceImpl extends BaseServiceImpl<Community> implements 
         Page<Community> page = communityDao.findPage(filters);
         List<Community> list = page.getResult();
         for(Community community : list) {
-            String areaName = dictDao.getNameById(community.getAreaId());
-            String plateName = dictDao.getNameById(community.getPlateId());
+            String areaName = dictService.getNameById(community.getAreaId());
+            String plateName = dictService.getNameById(community.getPlateId());
             community.setAreaName(areaName);
             community.setPlateName(plateName);
         }
@@ -63,9 +65,9 @@ public class CommunityServiceImpl extends BaseServiceImpl<Community> implements 
             return null;
         }
         //根据区域的id获取区域的名字
-        String areaName = dictDao.getNameById(community.getAreaId());
+        String areaName = dictService.getNameById(community.getAreaId());
         //根据板块的id获取板块的名字
-        String plateName = dictDao.getNameById(community.getPlateId());
+        String plateName = dictService.getNameById(community.getPlateId());
         //将区域的名字和板块的名字设置到Community对象中
         community.setAreaName(areaName);
         community.setPlateName(plateName);

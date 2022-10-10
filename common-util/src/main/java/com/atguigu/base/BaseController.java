@@ -4,6 +4,7 @@ import com.github.pagehelper.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,18 +16,26 @@ import java.util.TreeMap;
  * @create 2022/9/27 20:43
  */
 
-
 public class BaseController {
 
     private static final String PAGE_SUCCESS = "common/successPage";
 
     public static final String MESSAGE_SUCCESS = "操作成功!";
 
+    /**
+     * 跳转成功页面
+     * @param message 成功页面显示信息
+     * @return
+     */
     protected String successPage(String message, @NotNull HttpServletRequest request) {
         request.setAttribute("messagePage", StringUtil.isEmpty(message) ? MESSAGE_SUCCESS : message);
         return PAGE_SUCCESS;
     }
 
+    /**
+     * 查询过滤
+     * @return
+     */
     protected Map<String, Object> getFilters(@NotNull HttpServletRequest request) {
         Enumeration<String> paramNames = request.getParameterNames();
         Map<String, Object> filters = new TreeMap();
@@ -36,8 +45,10 @@ public class BaseController {
             if (values != null && values.length != 0) {
                 if (values.length > 1) {
                     filters.put(paramName, values);
+                    System.out.println(paramName + "---" + Arrays.toString(values));
                 } else {
                     filters.put(paramName, values[0]);
+                    System.out.println(paramName + "---" + values[0]);
                 }
             }
         }

@@ -242,4 +242,10 @@
         </if>
     </select>
 
+    <select id="findAll" resultType="com.atguigu.entity.House">
+        select
+        <include refid="columns"/>
+        from hse_house where is_deleted = 0
+    </select>
+
 </mapper>

@@ -11,6 +11,9 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 import org.junit.Test;
 
+/**
+ * 七牛云测试
+ */
 public class TestQiniu {
 
     // 上传本地文件

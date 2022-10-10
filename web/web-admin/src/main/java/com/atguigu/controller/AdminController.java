@@ -5,7 +5,6 @@ import com.atguigu.base.BaseController;
 import com.atguigu.entity.Admin;
 import com.atguigu.service.AdminService;
 import com.atguigu.service.RoleService;
-import com.atguigu.util.MD5;
 import com.atguigu.util.QiniuUtils;
 import com.github.pagehelper.PageInfo;
 import org.jetbrains.annotations.NotNull;

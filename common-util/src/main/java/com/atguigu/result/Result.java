@@ -1,8 +1,13 @@
 package com.atguigu.result;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * 全局统一返回结果类
+ * Created by IntelliJ IDEA
  *
+ * @Author : C22
+ * @create 2022/9/27 20:43
  */
 public class Result<T> {
 
@@ -18,28 +23,28 @@ public class Result<T> {
     public Result(){}
 
     // 返回数据
-    protected static <T> Result<T> build(T data) {
+    protected static <T> @NotNull Result<T> build(T data) {
         Result<T> result = new Result<T>();
         if (data != null)
             result.setData(data);
         return result;
     }
 
-    public static <T> Result<T> build(T body, Integer code, String message) {
+    public static <T> @NotNull Result<T> build(T body, Integer code, String message) {
         Result<T> result = build(body);
         result.setCode(code);
         result.setMessage(message);
         return result;
     }
 
-    public static <T> Result<T> build(T body, ResultCodeEnum resultCodeEnum) {
+    public static <T> @NotNull Result<T> build(T body, @NotNull ResultCodeEnum resultCodeEnum) {
         Result<T> result = build(body);
         result.setCode(resultCodeEnum.getCode());
         result.setMessage(resultCodeEnum.getMessage());
         return result;
     }
 
-    public static<T> Result<T> ok(){
+    public static<T> @NotNull Result<T> ok(){
         return Result.ok(null);
     }
 
@@ -49,12 +54,12 @@ public class Result<T> {
      * @param <T>
      * @return
      */
-    public static<T> Result<T> ok(T data){
+    public static<T> @NotNull Result<T> ok(T data){
         Result<T> result = build(data);
         return build(data, ResultCodeEnum.SUCCESS);
     }
 
-    public static<T> Result<T> fail(){
+    public static<T> @NotNull Result<T> fail(){
         return Result.fail(null);
     }
 
@@ -64,7 +69,7 @@ public class Result<T> {
      * @param <T>
      * @return
      */
-    public static<T> Result<T> fail(T data){
+    public static<T> @NotNull Result<T> fail(T data){
         Result<T> result = build(data);
         return build(data, ResultCodeEnum.FAIL);
     }
