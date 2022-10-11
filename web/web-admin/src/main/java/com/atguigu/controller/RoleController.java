@@ -1,6 +1,7 @@
 package com.atguigu.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
 import com.atguigu.base.BaseController;
 import com.atguigu.entity.Role;
 import com.atguigu.service.PermissionService;
@@ -106,7 +107,7 @@ public class RoleController extends BaseController {
     @GetMapping("/assignShow/{roleId}")
     public String assignShow(Model model, @PathVariable Long roleId) {
         List<Map<String, Object>> zNodes = permissionService.findPermissionByRoleId(roleId);
-        model.addAttribute("zNodes", zNodes);
+        model.addAttribute("zNodes", JSON.toJSONString(zNodes));
         model.addAttribute("roleId", roleId);
         return PAGE_ASSIGN_SHOW;
     }

@@ -45,7 +45,6 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
     public List<Map<String, Object>> findPermissionByRoleId(Long roleId) {
         List<Permission> permissionList = permissionDao.findAll();
         List<Long> permissionIdList = rolePermissionDao.findPermissionIdListByRoleId(roleId);
-
         List<Map<String, Object>> zNodes = new ArrayList<>();
         for (Permission permission : permissionList) {
             Map<String, Object> map = new HashMap<>();

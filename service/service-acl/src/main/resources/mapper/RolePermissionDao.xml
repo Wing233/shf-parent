@@ -20,7 +20,7 @@
 
     <select id="findPermissionIdListByRoleId" parameterType="long" resultType="long">
         select
-        <include refid="rolePermission"/>
+        permission_id
         from acl_role_permission
         where role_id = #{roleId}
 and is_deleted = 0
