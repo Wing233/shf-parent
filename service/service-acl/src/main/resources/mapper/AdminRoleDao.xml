@@ -75,7 +75,7 @@
             admin_id = #{adminId}
     </update>
 
-    <select id="findRoleIdByAdminId" resultType="long">
+    <select id="findRoleIdByAdminId" resultType="java.lang.Long">
         select
             role_id
         from acl_admin_role

@@ -64,6 +64,8 @@ public class PermissionServiceImpl extends BaseServiceImpl<Permission> implement
     public void saveRolePermissionRelationShip(Long roleId, Long @NotNull [] permissionIds) {
         rolePermissionDao.deleteByRoleId(roleId);
 
+        if (null == permissionIds || permissionIds.length == 0) return;
+
         List<RolePermission> rolePermissionList = new ArrayList<>();
         for (Long permissionId : permissionIds) {
             if(StringUtils.isEmpty(permissionId)) continue;

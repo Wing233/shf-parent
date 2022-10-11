@@ -88,6 +88,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
     public void saveUserRoleRelationShip(Long adminId, Long @NotNull [] roleIds) {
         adminRoleDao.deleteByAdminId(adminId);
 
+        if (null == roleIds || roleIds.length == 0) return;
+
         List<AdminRole> userRoleList = new ArrayList<>();
         for(Long roleId : roleIds) {
             if(StringUtils.isEmpty(roleId)) continue;

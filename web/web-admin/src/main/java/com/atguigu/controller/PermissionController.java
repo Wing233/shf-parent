@@ -58,13 +58,12 @@ public class PermissionController extends BaseController {
 
     /**
      * 保存新增
-     * @param model
      * @param permission
      * @param request
      * @return
      */
     @PostMapping("/save")
-    public String save(@NotNull ModelMap model, Permission permission, HttpServletRequest request) {
+    public String save(Permission permission, HttpServletRequest request) {
         permissionService.insert(permission);
         return this.successPage(MESSAGE_SUCCESS, request);
     }
@@ -83,7 +82,7 @@ public class PermissionController extends BaseController {
     }
 
     @PostMapping("/update/{id}")
-    public String update(ModelMap model, @PathVariable Long id, Permission permission, HttpServletRequest request) {
+    public String update(@PathVariable Long id, Permission permission, HttpServletRequest request) {
         permission.setId(id);
         permissionService.update(permission);
         return this.successPage(MESSAGE_SUCCESS, request);
@@ -91,12 +90,11 @@ public class PermissionController extends BaseController {
 
     /**
      * 删除
-     * @param model
      * @param id
      * @return
      */
     @GetMapping("/delete/{id}")
-    public String delete(ModelMap model, @PathVariable Long id) {
+    public String delete(@PathVariable Long id) {
         permissionService.delete(id);
         return LIST_ACTION;
     }

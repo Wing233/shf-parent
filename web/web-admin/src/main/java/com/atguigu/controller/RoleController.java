@@ -49,13 +49,6 @@ public class RoleController extends BaseController {
 
     public static final String PAGE_ASSIGN_SHOW = "role/assignShow";
 
-//    @RequestMapping
-//    public String index(@NotNull ModelMap model) {
-//        List<Role> list = roleService.findAll();
-//        model.addAttribute("list", list);
-//        return PAGE_INDEX;
-//    }
-
     @PreAuthorize("hasAnyAuthority('role.show')")
     @RequestMapping
     public String index(@NotNull ModelMap model, HttpServletRequest request) {
